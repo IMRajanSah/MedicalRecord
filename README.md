@@ -1,0 +1,3 @@
+FE - REACT JS
+BE - NODE JS
+DB - MYSQL
