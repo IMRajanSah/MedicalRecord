@@ -10,7 +10,7 @@ function MyTable(props) {
         XLSX.utils.book_append_sheet(wb,ws,"Sheet");
         XLSX.writeFile(wb,"MyExcel.xlsx")
     }
-    if(props.value=="Agent"){
+    if(props.value==="Agent"){
     // console.log(props.data);
         return(
             <>
@@ -41,7 +41,7 @@ function MyTable(props) {
       </>
         );
     }
-    if(props.value=="Customer"){
+    if(props.value==="Customer"){
     // console.log(props);
         return (
             <>
@@ -54,8 +54,8 @@ function MyTable(props) {
                         <th>Customer Name</th>
                         <th>Address</th>
                         <th>Mobile Number</th>
-                        <th>[H,W,BG]</th>
-                        <th>Balance = ( ToBePaidByCustomer - PaidToCustomer )</th>
+                        <th>[H,W,BG]*</th>
+                        <th>Balance*</th>
                         <th>Applied Country</th>
                         <th>Cutomer Work</th>
                         <th>Related Agent</th>
@@ -79,6 +79,11 @@ function MyTable(props) {
                     ))}
                 </tbody>
             </Table>
+            <span style={{fontSize:".65rem"}}>
+                <span style={{listStyle: 'none'}}>
+                    <span>*Balance= ToBePaidByCustomer - PaidToCustomer, *H - Height, *W - Weight, *BG - Blood Group</span>
+                </span>
+            </span>
             </>
           );
     }   

@@ -1,0 +1,14 @@
+.home{
+    margin-left: 4.5rem;
+    padding: 0.5rem;
+}
+.title{
+    font-size: larger;
+}
+.description{
+    padding: 0.5rem;
+    margin-left: 2rem;
+}
+small{
+    font-size: 0.75rem;
+}

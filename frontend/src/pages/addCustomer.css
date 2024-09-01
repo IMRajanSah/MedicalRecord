@@ -1,10 +1,12 @@
-.dashboard{
+.add-customer{
     /* margin-left: 4.5rem; */
     padding: 0.5rem;
 }
-.dashboard-title{
+.customer-title{
     font-weight: 500;
     font-size: large;
     margin-left: 4.5rem;
-
+}
+.customerForm{
+    padding: 0 4.5rem;
 }

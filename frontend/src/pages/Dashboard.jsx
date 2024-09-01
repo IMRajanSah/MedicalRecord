@@ -9,16 +9,12 @@ function Dashboard() {
   const [customerData,setcustomerData]= useState([])
   const [key, setKey] = useState('Agent')
   const getAgentData=()=>{
-    axios.get('http://localhost:8081/agent').
-    then((res)=>{console.log(res.data);
-     setagentData(res.data)}).
-    catch(err=>console.log(err))
+    axios.get('http://localhost:8081/agent').then((res)=>{console.log(res.data);
+     setagentData(res.data)}).catch(err=>console.log(err))
   }
   const getCustomerData=()=>{
-    axios.get('http://localhost:8081/customer').
-    then((res)=>{console.log(res.data);
-     setcustomerData(res.data)}).
-    catch(err=>console.log(err))
+    axios.get('http://localhost:8081/customer').then((res)=>{console.log(res.data);
+     setcustomerData(res.data)}).catch(err=>console.log(err))
   }
   useEffect(()=>{
     getAgentData()
@@ -26,13 +22,13 @@ function Dashboard() {
   },[])
     return (
       <div className='dashboard'>
-        <div className="title">Dashboard</div>
+        <div className="dashboard-title">Dashboard</div>
         <Tabs
           defaultActiveKey="Agent"
           className="mb-3"
           activeKey={key}
           onSelect={(k) => setKey(k)}
-          style={{marginTop:"1rem"}}
+          style={{marginTop:"1rem",padding:'0 4.5rem'}}
         >
           <Tab eventKey="Agent" title="Agent List" >
             <MyTable value={"Agent"} data={agentData}/>
