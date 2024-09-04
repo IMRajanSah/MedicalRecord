@@ -20,16 +20,16 @@ db.connect((err)=>{
     console.log('connection id:'+db.threadId);
 })
 // SELECT customer.MedicalNumber,customer.CustomerName,agent.AgentID,agent.Name from customer join agent on customer.RelatedAgent=agent.AgentID where customer.dateCreated between '2024-08-01' and '2024-08-10'
-db.query("SELECT * from customer join agent on customer.RelatedAgent=agent.AgentID where customer.dateCreated between '2024-08-01' and '2024-08-10'",(error,res,field)=>{
-    if(error){
-        console.log('error');
-        throw error;
-    }
+// db.query("SELECT * from customer join agent on customer.RelatedAgent=agent.AgentID where customer.dateCreated between '2024-08-01' and '2024-08-10'",(error,res,field)=>{
+//     if(error){
+//         console.log('error');
+//         throw error;
+//     }
     
-    res.forEach(element => {
-        console.log(element);
-    });
-})
+//     res.forEach(element => {
+//         console.log(element);
+//     });
+// })
 app.get('/customer',(req,res)=>{
     const sqlQuery = "SELECT * from customer"
     db.query(sqlQuery,(err,result)=>{
@@ -47,6 +47,93 @@ app.get('/agent',(req,res)=>{
         }
         return res.json(result)
     })
+})
+app.post('/addAgent',(req,res)=>{
+    // if(Object.keys(req.body).length === 0 || req.body.agentID==='' || req.body.agentName==='' || req.body.agentAddress==='' || req.body.agentMobileNumber===''){
+    //     res.statusMessage = "Mandatory Data is missing";
+    //     res.status(400).end();
+    //     return
+    // }
+    let sqlQuery
+    if(req.body.agentDateCreated===''){
+        let currDate = new Date()
+        currDate=currDate.toISOString().split('T')[0]
+        sqlQuery = "insert into agent (AgentID,Name,Address,MobileNumber,dateCreated) Values ("+Number(req.body.agentID)+",'"+req.body.agentName
+        +"','"+req.body.agentAddress+"','"+req.body.agentMobileNumber+"','"+currDate+"')"
+    }else{
+        sqlQuery = "insert into agent (AgentID,Name,Address,MobileNumber,dateCreated) Values ("+Number(req.body.agentID)+",'"+req.body.agentName
+        +"','"+req.body.agentAddress+"','"+req.body.agentMobileNumber+"','"+req.body.agentDateCreated+"')"
+    }
+    // console.log(sqlQuery);
+    
+    db.query(sqlQuery,(err,result)=>{
+        if(err){
+            console.log(err);            
+            res.statusMessage = "DB Error";
+            res.status(500).end();
+            return
+        }else{
+            res.status(200).send('DB Success')
+            return
+        }
+    })
+    // console.log(req.body);
+})
+app.post('/addCustomer',(req,res)=>{
+    // if(Object.keys(req.body).length === 0 || req.body.MedicalNumber==='' || req.body.CustomerName==='' || req.body.Address==='' || req.body.MobileNumber===''
+    // || req.body.ToBePaidByCustomer===''|| req.body.PaidToCustomer===''|| req.body.AppliedCountry===''|| req.body.CutomerWork===''|| req.body.RelatedAgent===''){
+    //     res.statusMessage = "Mandatory Data is missing";
+    //     res.status(400).end();
+    //     return
+    // }
+    //to throw agent does not exist error
+    const query= "select * from agent where AgentID="+Number(req.body.RelatedAgent)
+    let statusAgent=true
+    db.query(query,(err,result)=>{
+        if(err){
+            console.log(err);            
+            res.statusMessage = "DB Error for Agent DB";
+            res.status(400).end();
+            return
+        }
+        if(result.length===0){
+            statusAgent=false
+        }
+    })
+    if(!statusAgent){
+        res.statusMessage = req.body.RelatedAgent+" Agent Does not Exist.";
+        res.status(400).end();
+        return
+    }
+    let sqlQuery
+    if(req.body.dateCreated===''){
+        let currDate = new Date()
+        currDate=currDate.toISOString().split('T')[0]
+        sqlQuery = "insert into customer Values ("+Number(req.body.MedicalNumber)+",'"+req.body.CustomerName
+        +"','"+req.body.Address+"','"+req.body.MobileNumber+"','"+req.body.Height+"','"+req.body.Weight+"','"
+        +req.body.BloodGroup+"','"+Number(req.body.ToBePaidByCustomer)+"','"+Number(req.body.PaidToCustomer)+"','"+req.body.AppliedCountry+"','"+
+        req.body.CutomerWork+"','"+Number(req.body.RelatedAgent)+"','"+currDate+"')"
+    }else{
+        sqlQuery = "insert into customer Values ("+Number(req.body.MedicalNumber)+",'"+req.body.CustomerName
+        +"','"+req.body.Address+"','"+req.body.MobileNumber+"','"+req.body.Height+"','"+req.body.Weight+"','"
+        +req.body.BloodGroup+"','"+Number(req.body.ToBePaidByCustomer)+"','"+Number(req.body.PaidToCustomer)+"','"+req.body.AppliedCountry+"','"+
+        req.body.CutomerWork+"','"+Number(req.body.RelatedAgent)+"','"+req.body.dateCreated+"')"
+    }
+    console.log(sqlQuery);
+    
+    db.query(sqlQuery,(err,result)=>{
+        if(err){
+            // console.log(err);            
+            res.statusMessage = "DB Error";
+            res.status(500).end();
+            return
+        }else{
+            res.status(200).send('DB Success')
+            return
+        }
+    })
+    
+
 })
 app.listen('8081',()=>{
     console.log('listening');
