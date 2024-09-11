@@ -51,7 +51,7 @@ function AddAgent() {
     {postSuccess.length > 0 ?(<SuccessAgentRegister msg={postSuccess} dataType='agent' data={agentData}/>):(
       <>
       <div className='agent-title'>
-        <p>Register New Agent</p>
+        <p style={{fontSize:"1rem"}}>Register New Agent</p>
         {postError.length > 0 ? (<p style={{color:'red',fontSize:'1.25rem',fontWeight:'400'}}>{postError}</p>):null}
       </div>
       <div className='agentForm'>

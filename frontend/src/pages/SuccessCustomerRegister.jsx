@@ -1,8 +1,9 @@
 import React, { useRef } from 'react'
 import { Button, Table } from 'react-bootstrap';
 import { useReactToPrint } from 'react-to-print';
-
+import { useNavigate } from "react-router-dom";
 const SuccessCustomerRegister = (props) => {
+  const navigate = useNavigate();
   let docTitle = props.data.MedicalNumber+"-"+props.data.CustomerName
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
@@ -10,10 +11,14 @@ const SuccessCustomerRegister = (props) => {
     documentTitle:docTitle,
     pageStyle:"Table{margin:4rem 0rem 0rem 0rem }"
   });
+  const navigateToRegister=()=>{
+    navigate("/dashboard")
+  }
     return (
       <div>
       <div style={{padding:"3rem 2rem"}}>
         <p><b>Customer Registered Successfully ! </b></p>
+        <Button variant='dark' onClick={navigateToRegister}>Close</Button> &nbsp;
         <Button variant='dark' onClick={handlePrint}>Print</Button>
         <div ref={componentRef} >
                 <Table responsive dark>

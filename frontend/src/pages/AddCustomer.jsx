@@ -60,7 +60,7 @@ function AddCustomer() {
     {postSuccess.length > 0 ?(<SuccessCustomerRegister msg={postSuccess} dataType='customer' data={customertData}/>):(
       <>
       <div className='customer-title'>
-        <p>Register New Customer</p>
+        <p style={{fontSize:"1rem"}}>Register New Customer</p>
         {postError.length > 0 ? (<p style={{color:'red',fontSize:'1.25rem',fontWeight:'400'}}>{postError}</p>):null}
       </div>
       <div className='customerForm'>

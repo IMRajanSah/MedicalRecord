@@ -14,6 +14,7 @@ function Header() {
                 <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
                 <Nav.Link as={Link} to="/add-agent">Add Agent</Nav.Link>
                 <Nav.Link as={Link} to="/add-customer">Add Customer</Nav.Link>
+                <Nav.Link as={Link} to="/get-data">Get Data</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>

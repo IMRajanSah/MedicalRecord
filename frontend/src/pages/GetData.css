@@ -1,0 +1,14 @@
+.get-data{
+    margin-left: 7.5rem;
+    padding: 0.5rem;
+}
+.get-data p{
+    font-size: larger;
+
+}
+.data{
+    display: flex;
+}
+.customerList,.agentDetails{
+    width: 50%;
+}

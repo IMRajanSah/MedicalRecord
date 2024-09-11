@@ -2,7 +2,10 @@ import Table from 'react-bootstrap/Table';
 import { Button } from 'react-bootstrap';
 // import XLSX from 'xlsx'
 import * as XLSX from 'xlsx/xlsx';
+import '../App.css'
+import { useState } from 'react';
 function MyTable(props) {
+  const [searchVal,setSearchVal]=useState("")
   const exportExcel = (excelData) => {
     // console.log(excelData);
     var wb = XLSX.utils.book_new(),
@@ -15,10 +18,14 @@ function MyTable(props) {
     return (
       <div style={{paddingLeft:"1.5rem"}}>
         {/* <p>{props.value} data</p> */}
+        <div className="myflex">
         <Button variant='dark' onClick={() => exportExcel(props.data)}>
           Export to Excel
         </Button>
-        <Table responsive>
+        <input onChange={(e) => setSearchVal(e.target.value)} placeholder="Search for Agent Names..."/>
+        </div>
+        <div style={{ maxHeight: "325px",overflowY: "auto" }}>
+        <Table style={{width:"100%"}}>
           <thead>
             <tr>
               <th>Agent ID</th>
@@ -29,7 +36,7 @@ function MyTable(props) {
             </tr>
           </thead>
           <tbody>
-            {props.data.map((agent, index) => (
+            {props.data.filter((row)=>!searchVal.length || row.Name .toString() .toLowerCase() .includes(searchVal.toString().toLowerCase())).map((agent, index) => (
               <tr key={index}>
                 <td>{agent.AgentID}</td>
                 <td>{agent.Name}</td>
@@ -40,6 +47,7 @@ function MyTable(props) {
             ))}
           </tbody>
         </Table>
+        </div>
       </div>
     );
   }
@@ -48,10 +56,14 @@ function MyTable(props) {
     return (
       <div style={{paddingLeft:"1.5rem"}}>
         {/* <p>{props.value} Data</p> */}
+        <div className="myflex">
         <Button variant='dark' onClick={() => exportExcel(props.data)}>
           Export to Excel
         </Button>
-        <Table responsive>
+        <input onChange={(e) => setSearchVal(e.target.value)} placeholder="Search for Customer Names..."/>
+        </div>
+        <div style={{ maxHeight: "315px",overflowY: "auto" }}>
+        <Table>
           <thead>
             <tr>
               <th>Medical Number</th>
@@ -66,8 +78,8 @@ function MyTable(props) {
               <th>Date Created</th>
             </tr>
           </thead>
-          <tbody style={{}}>
-            {props.data.map((customer, index) => (
+          <tbody>
+            {props.data.filter((row)=>!searchVal.length || row.CustomerName .toString() .toLowerCase() .includes(searchVal.toString().toLowerCase())).map((customer, index) => (
               <tr key={index}>
                 <td>{customer.MedicalNumber}</td>
                 <td>{customer.CustomerName}</td>
@@ -88,12 +100,13 @@ function MyTable(props) {
             ))}
           </tbody>
         </Table>
+        </div>
         <span style={{ fontSize: '.65rem' }}>
           <span style={{ listStyle: 'none' }}>
-            <span>
+            <small>
               *Balance= ToBePaidByCustomer - PaidToCustomer, *H - Height, *W -
               Weight, *BG - Blood Group
-            </span>
+            </small>
           </span>
         </span>
       </div>

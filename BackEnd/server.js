@@ -48,6 +48,31 @@ app.get('/agent',(req,res)=>{
         return res.json(result)
     })
 })
+app.post('/getCustomerByAgentID',(req,res)=>{
+    // console.log(req.body.agentID);
+    const sqlQuery= "SELECT * FROM agent JOIN Customer ON agent.agentID=Customer.RelatedAgent where agent.agentID="+Number(req.body.agentID)
+    db.query(sqlQuery,(err,result)=>{
+        if(err){
+            return res.json({Message:"Error from server side"})
+        }
+        console.log(result);
+        return res.json(result)
+    })
+    // }
+})
+app.post('/getCustomerByDate',(req,res)=>{
+    // console.log(req.body.agentID);
+    const sqlQuery= 'select * from customer where dateCreated="'+req.body.dateData+'"'
+    db.query(sqlQuery,(err,result)=>{
+        if(err){
+            return res.json({Message:"Error from server side"})
+        }
+        // console.log(result);
+        return res.json(result)
+    })
+    // }
+})
+
 app.post('/addAgent',(req,res)=>{
     // if(Object.keys(req.body).length === 0 || req.body.agentID==='' || req.body.agentName==='' || req.body.agentAddress==='' || req.body.agentMobileNumber===''){
     //     res.statusMessage = "Mandatory Data is missing";
@@ -107,8 +132,9 @@ app.post('/addCustomer',(req,res)=>{
     }
     let sqlQuery
     if(req.body.dateCreated===''){
-        let currDate = new Date()
+        let currDate = new Date() 
         currDate=currDate.toISOString().split('T')[0]
+        // currDate=currDate.getFullYear()+"-"+(currDate.getMonth()+1)+"-"+currDate.getDate()
         sqlQuery = "insert into customer Values ("+Number(req.body.MedicalNumber)+",'"+req.body.CustomerName
         +"','"+req.body.Address+"','"+req.body.MobileNumber+"','"+req.body.Height+"','"+req.body.Weight+"','"
         +req.body.BloodGroup+"','"+Number(req.body.ToBePaidByCustomer)+"','"+Number(req.body.PaidToCustomer)+"','"+req.body.AppliedCountry+"','"+
