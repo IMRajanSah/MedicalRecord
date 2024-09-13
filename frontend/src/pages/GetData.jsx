@@ -13,16 +13,20 @@ const GetData = () => {
     setPostError2('')
     setpostSuccess2('')
     setdateData(event.target.value.toString());
-    // console.log(dateData);
     
   };
   const handleSubmitDate = (event) => {
     event.preventDefault();
+    if(dateData===''){
+      setPostError1('Enter Date')
+      setpostSuccess1('')
+      return
+    }
     setPostError1('')
     setpostSuccess1('')
     // console.log(agentData);
     // setPostError('')
-    // console.log(agentID);
+    // console.log(dateData);
     axios
       .post('http://localhost:8081/getCustomerByDate', {dateData})
       .then((res) => {
@@ -60,6 +64,10 @@ const GetData = () => {
   };
   const handleSubmitAgentID = (event) => {
     event.preventDefault();
+    if(agentID===''){
+      setPostError2('Enter Agent ID')
+      return
+    }
     setPostError2('')
     setpostSuccess2('')
     setPostpostData()
@@ -69,7 +77,7 @@ const GetData = () => {
     axios
       .post('http://localhost:8081/getCustomerByAgentID', {agentID})
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if(res.data.length===0){
           setPostError2("Agent does not exist or no customer linked")
         }else{

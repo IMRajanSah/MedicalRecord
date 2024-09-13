@@ -10,7 +10,8 @@ const db = mysql.createConnection({
     host:'localhost',
     user:'root',
     password:'password',
-    database:'medical'
+    database:'medical',
+    timezone : "+00:00"
 })
 db.connect((err)=>{
     if(err){
@@ -55,19 +56,19 @@ app.post('/getCustomerByAgentID',(req,res)=>{
         if(err){
             return res.json({Message:"Error from server side"})
         }
-        console.log(result);
+        // console.log(result);
         return res.json(result)
     })
     // }
 })
 app.post('/getCustomerByDate',(req,res)=>{
-    // console.log(req.body.agentID);
+    // console.log(req.body.dateData);
     const sqlQuery= 'select * from customer where dateCreated="'+req.body.dateData+'"'
     db.query(sqlQuery,(err,result)=>{
         if(err){
             return res.json({Message:"Error from server side"})
         }
-        // console.log(result);
+        // console.log(result[0].dateCreated);
         return res.json(result)
     })
     // }

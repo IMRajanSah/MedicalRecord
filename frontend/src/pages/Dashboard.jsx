@@ -9,11 +9,13 @@ function Dashboard() {
   const [customerData,setcustomerData]= useState([])
   const [key, setKey] = useState('Agent')
   const getAgentData=()=>{
-    axios.get('http://localhost:8081/agent').then((res)=>{console.log(res.data);
+    axios.get('http://localhost:8081/agent').then((res)=>{
+      // console.log(res.data);
      setagentData(res.data)}).catch(err=>console.log(err))
   }
   const getCustomerData=()=>{
-    axios.get('http://localhost:8081/customer').then((res)=>{console.log(res.data);
+    axios.get('http://localhost:8081/customer').then((res)=>{
+      // console.log(res.data);
      setcustomerData(res.data)}).catch(err=>console.log(err))
   }
   useEffect(()=>{

@@ -42,8 +42,8 @@ function AddCustomer() {
       .post('http://localhost:8081/addCustomer', customertData)
       .then((res) => {
         setPostSuccess(res.data)
-        console.log(res.data)
-        console.log(res.status);
+        // console.log(res.data)
+        // console.log(res.status);
       })
       .catch((err) => {
         if(err.toJSON().message==='Network Error'){
