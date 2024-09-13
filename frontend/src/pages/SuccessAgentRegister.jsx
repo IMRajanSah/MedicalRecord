@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { useReactToPrint } from 'react-to-print';
 import { useNavigate } from "react-router-dom"; 
-
+// import img1 from '../img/image.png'
 const SuccessAgentRegister = (props) => {
   const navigate = useNavigate();
   let docTitle = props.data.agentID+"-"+props.data.agentName
@@ -22,6 +22,7 @@ const SuccessAgentRegister = (props) => {
         <Button variant='dark' onClick={navigateToRegister}>Close</Button> &nbsp;
         <Button variant='dark' onClick={handlePrint}>Print</Button>
         <div ref={componentRef} >
+          {/* <p><img style={{height:"100%",width:"100%"}} src={img1} alt="" /></p> */}
                 <Table responsive dark>
                     <thead>
                         <tr>
